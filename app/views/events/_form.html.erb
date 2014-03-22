@@ -1,0 +1,72 @@
+<section class="twoofthree padder">
+<%= form_for(@event) do |f| %>
+<%= hidden_field_tag 'event[user_id]', current_user.id  %>
+	<article>
+		<% 
+		@object = Venue.find(:all, :conditions => ['user_id = ?', current_user.id]).collect {|p| [ p.name, p.id ] }
+		if @object.empty? %>
+		<h2>You don't have any Venue. Why not <a href="/venues/new" style="color:#F66">create</a> one first!</h2><br>
+		<img src="/images/why.jpeg">
+		<% else %>
+		<div class="profile_text">
+			<div class="holder">
+		        <h3 class="fkey">Venue Name</h2>
+		        <div class="val"><%= f.select :venue_id, Venue.find(:all, :conditions => ['user_id = ?', current_user.id]).collect {|p| [ p.name, p.id ] } %></div>
+		      </div>
+			 <div class="holder">
+		        <h3 class="fkey">Event name</h2>
+		         <div class="val"><%= f.text_field :name, :class =>"tips", :title => "Enter Event name." %></div>
+		      </div> 
+			<div class="holder">
+		        <h3 class="fkey">Description</h2>
+		        <div class="val"><%= f.text_field :description, :class =>"tips", :title => "Enter Description." %></div>
+			</div>
+			<div class="holder">
+		        <h3 class="fkey">Tags</h2>
+		        <div class="val"><%= f.text_field :tag_list, :class =>"tips", :title => "From general to specific like : Music, Dj, House, Minimal, Happy hour" %></div>
+			</div>
+			<div class="holder">
+		        <h3 class="fkey">Start Time</h2>
+		        <div class="val"><%= f.text_field :start_time, :class =>"tips", :title => "When event starts." %></div>
+		      </div>
+			<div class="holder">
+		       <h3 class="fkey">End Time</h2>
+		       <div class="val"><%= f.text_field :end_time, :class =>"tips", :title => "When event ends." %></div>
+			</div>
+			<div class="holder">
+				<h3 class="key"></h2>
+				<div class="val">  <%= f.submit :class =>" button" %></div>
+			</div>
+		</div><% end%>
+	</article>
+</section>
+<div class="oneofthree padder">
+<% 	if !@object.empty? %>
+	<% if params[:action] == "edit" %>
+		<%= image_tag @event.poster.url(:medium) %>	
+	<% end %>	
+		<%= f.file_field :poster %>
+<% else %>
+<h4>TIP</h4>
+<p>All events are attached to venues. You can't create event without address.</p>
+<% end %>	
+</div>
+<script type="text/javascript" src="/javascripts/jquery.tooltips.js"></script>
+<script type="text/javascript" src="/javascripts/ui/jquery.timepicker.js"></script>
+<script type="text/javascript">
+
+	$(function(){
+	$(".tips").tipTip({maxWidth: "auto", edgeOffset: 10, activation: "focus", defaultPosition: "right",maxWidth: "220px"});
+	$('#event_start_time').datetimepicker({
+		timeFormat: 'h:m:s',dateFormat: 'dd/mm/yy',showSecond: true,
+		separator: ' '
+	});
+	$('#event_end_time').datetimepicker({
+		timeFormat: 'h:m:s',dateFormat: 'dd/mm/yy',showSecond: true,
+		sliderAccessArgs: { touchonly: false },
+		
+		separator: ' '
+	});
+	});
+	</script>
+ <%	end %>

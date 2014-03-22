@@ -1,0 +1,81 @@
+	 <div class="twoofthree padder">
+		    <aside class="settings right"> <a class="block" title="Edit" href="<%= edit_venue_path(@venue) %>"></a></aside>
+<%= form_for(@venue) do |f| %>
+	<%= hidden_field :user_id, current_user.id %>
+   <article>
+	    <div class="profile_text">
+		 			<div class="holder">
+	         <h3 class="key">Venue Name</h2>
+	         <div class="val"><%= @venue.name %></div>
+	       </div>
+				 <div class="holder">
+		         <h3 class="key">Address</h2>
+		         <div class="val"><%=  @venue.address %></div>
+		       </div> 
+			 			<div class="holder">
+		         <h3 class="key"></h2>
+		         <div class="val"><%=  @venue.zip %>, <%=  @venue.city %>, <%=  @venue.country %></div>
+		       </div>
+				 			<div class="holder">
+	         <h3 class="key">About</h2>
+	         <div class="val"><%=  @venue.about%></div>
+	       </div>
+		 			<div class="holder">
+	         <h3 class="key">Type</h2>
+	         <div class="val"><%=  @venue.venue_type %></div>
+	       </div>
+	       <div class="holder">
+	         <h3 class="key">Email</h2>
+	         <div class="val"><%=  @venue.email %></div>
+	       </div>
+	       <div class="holder">
+	         <h3 class="key">Website</h2>
+	         <div class="val"><%=  @venue.website %></div>
+	       </div>
+	       <div class="holder">
+	         <h3 class="key">Phone</h2>
+	         <div class="val"><%=  @venue.phone %></div>
+	       </div>
+	       <div class="holder">
+	         <h3 class="key">Twitter</h2>
+	         <div class="val"><%=  @venue.twitter %></div>
+	       </div>
+	       <div class="holder">
+	         <h3 class="key">Facebook</h2>
+	         <div class="val"><%=  @venue.fb %></div>
+	       </div>
+			</div>
+	 </article>
+
+	    </article>
+	  </div>
+	  <div class="oneofthree padder"><%= image_tag @venue.logo.url(:medium) %>
+	</div>
+	<div id="map-canvas" class="map rounded"></div>
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+var map;
+function initialize() {
+  var myLatlng = new google.maps.LatLng(<%=  @venue.longlat %>);
+  var myOptions = {
+    zoom: 14,
+    center: myLatlng,
+		'disableDefaultUI':true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+
+  }
+  map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+
+ 
+  var marker = new google.maps.Marker({
+			icon:  "<%= @venue.logo.url(:minithumb) %>",
+      position: myLatlng,
+      map: map,
+      title:"<%= @venue.name %>"
+  });
+}
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+ <% end %>

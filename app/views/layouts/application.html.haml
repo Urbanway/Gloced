@@ -1,0 +1,23 @@
+!!!
+%html
+  %head
+    %meta{:content => "text/html;charset=utf-8", "http-equiv" => "Content-Type"}
+      %meta{:content => "Urbanway LLC", :name => "author"}
+        %meta{:content => "Gloced", :name => "description"}
+          %meta{:content => "Globally Local Events Made Easy", :name => "keywords"}
+            %title= title
+            = csrf_meta_tag
+            = stylesheet_link_tag '/css/style', :media => 'screen'
+            = stylesheet_link_tag '/css/ui/jquery.ui.all.css', :media => 'screen'
+            = javascript_include_tag :application
+            = javascript_include_tag '/javascripts/ui/jquery-ui.js'
+            = javascript_include_tag '/javascripts/jquery.gritter.min.js'
+  %body
+    #maincontainter
+      = render 'layouts/header'
+      = render 'layouts/content_nav'
+      #center
+        #content
+          %section.round
+            = yield
+    = render 'layouts/footer'

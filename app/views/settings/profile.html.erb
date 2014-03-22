@@ -1,0 +1,40 @@
+
+	 <div class="twoofthree padder">
+<%= form_for(@user) do |f| %>
+   <article>
+	    <div class="profile_text">
+		 			<div class="holder">
+	         <h3 class="fkey">First Name</h2>
+	         <div class="val"><%= f.text_field :firstName %></div>
+	       </div>
+				 <div class="holder">
+		         <h3 class="fkey">Last Name</h2>
+		         <div class="val"><%= f.text_field :lastName %></div>
+		       </div> 
+		 			<div class="holder">
+	         <h3 class="fkey">About</h2>
+	         <div class="val"><%= f.text_field :about,:size=>"30", :maxlength=>"200"%></div>
+	       </div>
+		 			<div class="holder">
+	         <h3 class="fkey">City</h2>
+	         <div class="val"><%= f.text_field :city %></div>
+	       </div>
+	       <div class="holder">
+	         <h3 class="fkey">Places Visited</h2>
+	         <div class="val"><%= f.text_field :places %></div>
+	       </div>
+			 <div class="holder">
+			   <h3 class="key"></h2>
+        <div class="val">  <%= f.submit :class =>" button" %></div>
+			  </div></div>
+	 </article>
+ <% end %>
+
+	    </article>
+	  </div>
+		<div class="oneofthree padder">
+		  <div style="width:310px; height:310px; overflow:hidden"> <%= image_tag @user.avatar.url(:medium) %> </div>
+		 <%= form_for(@user, :url => '/settings/avatar_upload', :html => { :method => :put }) do |f| %>
+		 <%= f.file_field :avatar %> <%= f.submit "UPDATE Avatar", :class =>" button" %>
+		  <% end %>
+		</div>

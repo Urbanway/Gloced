@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    %title Gloced
+    %meta{:content => "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}
+      %meta{:content => "Explore events like never before!", :name => "description"}
+        %meta{:content => "Explore events like never before!", :name => "keywords"}
+          /
+            Change the width below to just wider than your form's width
+            to optimize its initial scale on Apple iOS  and Android devices
+          %meta{:content => "width=640", :name => "viewport"}
+            = javascript_include_tag :application
+            = stylesheet_link_tag '/css/front', :media => 'screen'
+            = javascript_include_tag '/javascripts/jquery.gritter.min.js'
+  %body
+    .wrapper.rounded6
+      .holder.rounded6
+        .text
+          %br
+            %br
+              .center
+                %img{:src => "/images/logo.png"}/
+              %br
+                %br
+                  %p{:style => "font-size:24px; text-align:center"} Explore events like never before!
+                  %p.center
+                    Remember that time that you traveled and didn't know anything about the events that were taking place around your area?
+                    %br
+                      %br
+                        With Gloced you find the coolest events near you easily.
+      .container.rounded6.center
+        = yield
+      = render 'layouts/public/footer'
+      = debug(params) if Rails.env.development?

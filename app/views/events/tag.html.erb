@@ -1,0 +1,44 @@
+<% if @events.any? %>
+	<% @events.each_slice(3) do |slice| %>
+		<%= content_tag :div, :class => :row do %>
+			<% slice.each do |event| %>
+	
+<div class="oneofthree padder">
+  <article class="event-block">
+    <div class="holder">
+      <aside class="settings right"> <a class="block" title="Edit" href="<%= edit_event_path(event) %>"></a><%= link_to "", event, confirm: 'Are you sure you want to delete it? There is no UNDO, plus all history of this event will be gone, FOREVER. So?',:class =>'delete', method: :delete %></aside>
+      <div class="pic-thumb"><%= image_tag event.poster.url(:thumb) %></div>
+      <div class="date">
+
+				<span class="day"><%=  event.start_time.strftime("%A") %> </span>
+				<span class="daydate"><%=  event.start_time.strftime("%m") %>  </span>
+				<span class="month"><%=  event.start_time.strftime("%b") %> <br>
+			<%=  event.start_time.strftime("%Y") %>  </span>
+				<span class="hour"><%=  event.start_time.strftime("%H:%M") %> h </span>
+
+
+</div>
+      <div class="sharer">
+        <ul>
+          <li><span class="newspaper"></span><a href="/events/top" class="">GLOC IT</a></li>
+          <li class="share"><span style="left: -40px; width: 30px; "></span><a class="">SHARE</a></li>
+          <li class="share"><span style="left: -40px; width: 30px; "></span><a href="/badges/all" class="">EMBED</a></li>
+          <li class="share"><span style="left: -40px; width: 30px; "></span><a href="/events/my" class="">FLAG</a></li>
+        </ul>
+      </div>
+      <h1> <%= link_to event.name, event_path(event.slug) %></h1>
+      <div class="desc"><%= event.description %></div>
+      <ul class="tags">
+        <% event.tag_list.each do |tag| -%>
+        <li> <%= link_to tag, event_tags_path("#{tag}"), -%></li>
+        <% end -%>
+      </ul>
+    </div>
+  </article>
+</div>
+			<% end %>
+		<% end %>
+
+
+<% end %>
+<% end %>

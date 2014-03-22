@@ -1,0 +1,69 @@
+<% 	@object = Event.find(:all, :conditions => ['user_id = ?', current_user.id]).collect {|p| [ p.name, p.id ] }
+	if @object.empty? %>
+		<section id="events" class="twoofthree padder">
+			<article>
+		<h2>You haven't created any Event.<br> Why not <a href="/events/new" style="color:#F66">create</a> one first!</h2><br>
+		<img src="/images/why.jpeg">
+		</article></section>
+	<% else %>
+
+<% if @events.any? %>
+           <% @events.each do |event| %>
+                <div class="one padder">
+                    <article class="event-list">
+                        <div class="holder">
+													<% unless current_user?(@user) %>
+													
+                            <aside class="settings right">
+                                <a class="block" title="Edit" href="<%= edit_event_path(event) %>"></a>
+																<%=link_to "", event, confirm: 'Are you sure you want to delete it? It will be gone, FOREVER. So?',:class=>'delete', :title =>"Delete",  method: :delete %>
+														</aside>
+														<%= link_to image_tag(event.venue.logo.url(:minithumb), :size => "30x30", :style => "float:right; bottom: 10px; position: absolute;right:10px", :alt => "#{event.venue.name}"), venue_path(event.venue.slug) %>
+														<% end %>
+                            <div class="pic-thumb">
+                                <%=image_tag event.poster.url(:minithumb) %>
+                            </div>
+                            <div class="date">
+                                <span class="day">
+                                    <%=event.start_time.strftime( "%A") %>
+                                </span>
+                                <span class="daydate">
+                                    <%=event.start_time.strftime( "%m") %>
+                                </span>
+                                <span class="month">
+                                    <%=event.start_time.strftime( "%b") %>
+                                        <br>
+                                        <%=event.start_time.strftime( "%Y") %>
+                                </span>
+                                <span class="hour">
+                                    <%=event.start_time.strftime( "%H:%M") %>h</span>
+                            </div>
+                            <div class="row"><div class="title">
+                                <%=link_to event.name, event_path(event.slug) %>
+                            </div>
+                            <div class="desc">
+                                <%=event.description %>
+                            </div>
+                            <div class="navtags">
+	                            <ul class="tags">
+	                                <% event.tag_list.each do |tag| %>
+	                                    <li>
+	                                        <%=link_to tag, event_tags_path( "#{tag}")-%>
+	                                    </li>
+	                                <% end -%>
+	                            </ul>
+														</div>
+                        </div>    <div class="sharer">
+											        <ul>
+											          <li><a href="/events/top" class=""><img src="/images/icons/glocit.png"  alt="Gloc it"></a></li>
+											          <li><a href="/events/top" class=""><img src="/images/icons/attend.png" alt="Attend"></a></li>
+											          <li><a href="/badges/all" class=""><img src="/images/icons/share.png" alt="Share"></a></li>
+											          <li><a href="/events/my" class=""><img src="/images/icons/flag.png" alt="Flag"></a></li>
+											        </ul>
+											      </div>
+                    </article>
+                </div>
+   <% end %>
+<% end %>	
+<%= will_paginate @events %>
+<% end %>

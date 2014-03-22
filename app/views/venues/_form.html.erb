@@ -1,0 +1,182 @@
+	 <div class="twoofthree padder">
+<%= form_for(@venue) do |f| %>
+	<%= hidden_field :user_id, current_user.id %>
+<%= f.hidden_field :longlat %>
+  		 <div class="holder">
+	         <h3 class="fkey"></h2>
+	         <div class="val"><%= f.text_field :name, :class =>"big-input", :placeholder => "Enter venue Full name." %></div>
+	       </div>
+ <article>
+	    <div class="profile_text">
+	<div id="map_canvas" class="map rounded"></div>
+</div>
+	 </article>
+
+	  </div>
+	  <div class="oneofthree padder">
+				 <div class="holder">
+		         <h3 class="fkey">Address</h2>
+			         <div class="val"><%= f.text_field :address, :class =>"tips", :title => "Enter venue Address." %></div>
+		       </div> 
+			 			<div class="holder">
+		         <h3 class="fkey">City</h2>
+		         <div class="val"><%= f.text_field :city, :class =>"tips", :title => "Enter venue City." %></div>
+		       </div>
+			 			<div class="holder">
+		         <h3 class="fkey"> State</h2>
+		         <div class="val"><%= f.text_field :city, :class =>"tips", :title => "Enter venue State." %></div>
+		       </div>
+			 			<div class="holder">
+		         <h3 class="fkey">Zip Code</h2>
+		         <div class="val"><%= f.text_field :zip, :class =>"tips", :title => "Enter venue Zip Code." %></div>
+		       </div>
+			 			<div class="holder">
+		         <h3 class="fkey">Country</h2>
+		         <div class="val"><%= f.text_field :country, :class =>"tips", :title => "Enter venue Country." %></div>
+		       </div>
+		 			<div class="holder">
+	         <h3 class="fkey">About</h2>
+	         <div class="val"><%= f.text_field :about, :size=>"30", :maxlength=>"200", :class =>"tips", :title => "Enter something about venue." %></div>
+	       </div>
+		 			<div class="holder">
+	         <h3 class="fkey">Type</h2>
+	         <div class="val"><%= f.text_field :venue_type, :class =>"tips", :title => "Enter venue type." %></div>
+	       </div>
+	       <div class="holder">
+	         <h3 class="fkey">Email</h2>
+	         <div class="val"><%= f.email_field :email, :class =>"tips", :title => "Enter venue official email" %></div>
+	       </div>
+	       <div class="holder">
+	         <h3 class="fkey">Website</h2>
+	         <div class="val"><%= f.text_field :website, :class =>"tips", :title => "Enter venue official website." %></div>
+	       </div>
+	       <div class="holder">
+	         <h3 class="fkey">Phone</h2>
+	         <div class="val"><%= f.text_field :phone, :class =>"tips", :title => "Enter venue contact Enter venue contact / reservation number." %></div>
+	       </div>
+	       <div class="holder">
+	         <h3 class="fkey">Twitter</h2>
+	         <div class="val"><%= f.text_field :twitter, :class =>"tips", :title => "Enter venue twitter link." %></div>
+	       </div>
+	       <div class="holder">
+	         <h3 class="fkey">Facebook</h2>
+	         <div class="val"><%= f.text_field :fb, :class =>"tips", :title => "Enter venue facebook page link." %></div>
+	       </div>
+			 <div class="holder">
+			   <h3 class="key"></h2>
+        <div class="val">  <%= f.submit :class =>" button" %></div>
+			  </div>		<%	if params[:action] == "edit" %>
+			<%= image_tag @venue.logo.url(:medium) %>	
+		<% end %>
+<%= f.file_field :logo %>
+		</div>
+	<div id="dialog"></div>
+	<script type="text/javascript" src="/javascripts/jquery.tooltips.js"></script>
+
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script> 
+	<script type="text/javascript" src="/javascripts/ui/jquery.ui.map.min.js"></script>
+	<script type="text/javascript" src="/javascripts/ui/jquery.ui.map.services.min.js"></script>
+	<script type="text/javascript" src="/javascripts/ui/jquery.ui.map.extensions.js"></script>
+	<script type="text/javascript">
+
+	$(function(){
+	$(".tips").tipTip({maxWidth: "auto", edgeOffset: 10, activation: "focus", defaultPosition: "right",maxWidth: "220px"});
+	});
+	</script>
+<%	if params[:action] == "edit" %>
+	<script type="text/javascript">
+    $(function() { 
+				$('#map_canvas').gmap({ 
+				'center': '<%= @venue.longlat %>',
+				'zoom':14 ,
+				
+				'disableDefaultUI':true,
+				 	'callback': function(map) {
+					var self = this;
+					self.set('findLocation', function(location, marker) {
+						self.search({'location': location}, function(results, status) {
+							if ( status === 'OK' ) {
+								$.each(results[0].address_components, function(i,v) {
+									if ( v.types[0] == "locality" || v.types[0] == "administrative_area_level_2" ) {
+										$('#venue_city').val(v.long_name);
+									} else if ( v.types[0] == "country") {
+										$('#venue_country').val(v.long_name);
+									} else if ( v.types[0] == "route") {
+										$('#venue_address').val(v.long_name);
+									}
+								});
+								$('#venue_longlat').val(results[0].geometry.location.lat() + "," +results[0].geometry.location.lng());
+								marker.setTitle(results[0].formatted_address);
+							//	self.get('openDialog')(marker); 
+							//	alert (results[0].geometry.location.Pa);
+							}
+						});
+					});	
+						self.addMarker({'position': '<%= @venue.longlat %>', 'draggable': true,	icon:  "<%= @venue.logo.url(:minithumb) %>", 'bounds': false}, function(map, marker) {
+							self.get('findLocation')(marker.getPosition(), marker);
+						}).dragend( function(event) {
+							self.get('findLocation')(event.latLng, this);
+					});
+				}});
+		});
+      </script>
+<%	elsif  params[:action] == "new"  %>
+<script type="text/javascript">
+$('#map_canvas').gmap().bind('init', function(event, map) { 
+/*	var country = "United States"
+
+	var geocoder = new GClientGeocoder();
+	geocoder.getLatLng(country, function (point) {
+	  if (!point) {
+	    // Handle error
+	  } else {
+	    map.setCenter(point, 8, G_PHYSICAL_MAP);
+	  }
+	});
+
+*/
+		$(map).click( function(event) {
+
+			if(!map.singleMarker) {	
+			
+			$('#map_canvas').gmap('addMarker', {
+				'position': event.latLng, 
+				'draggable': true, 
+				'bounds': false
+			}, function(map, marker) {
+				findLocation(marker.getPosition(), marker);
+			}).dragend( function(event) {
+				findLocation(event.latLng, this);
+			});
+		
+				map.singleMarker = true;		
+			};	
+		});
+
+});
+
+function findLocation(location, marker) {
+	$('#map_canvas').gmap('search', {'location': location}, function(results, status) {
+		if ( status === 'OK' ) {
+			$.each(results[0].address_components, function(i,v) {
+				if ( v.types[0] == "locality" || v.types[0] == "administrative_area_level_2" ) {
+					$('#venue_city').val(v.long_name);
+				} else if ( v.types[0] == "country") {
+					$('#venue_country').val(v.long_name);
+				} else if ( v.types[0] == "route") {
+					$('#venue_address').val(v.long_name);
+				} else if ( v.types[0] == "postal_code") {
+					$('#venue_zip').val(v.long_name);
+				}
+			});
+			$('#venue_state').val(results[0].formatted_address);
+
+			$('#venue_longlat').val(results[0].geometry.location.lat() + "," +results[0].geometry.location.lng());
+		}
+	});
+}
+
+
+</script>
+ <%	end %>
+<% end %>

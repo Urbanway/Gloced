@@ -1,0 +1,26 @@
+<div id="header" >
+  <div id="logo" > <%= link_to logo, root_path %>
+    <div id="place">
+			
+				in <%=get_geo("city")%> 
+		</div>
+  </div>
+  <div id="account-bar" class="nav">
+    <ul>
+      <li><a href="/notifications" >25</a></li>
+      <li> <%= link_to current_user.username, "/#{current_user.username}" %> </li>
+      <li> <%= link_to('Settings', settings_path)  %> </li>
+      <li> <%= link_to('Logout', destroy_user_session_path, :method => :delete) %> </li>
+    </ul>
+  </div>
+  <div id="main-menu" class="nav ">
+    <ul>
+      <li <% if params[:controller] == "events"  %> class="selected" <% end %>><a href="/events/">Events</a></li>
+	<% if params[:controller] == "events"  %>
+      <li class="sub <% if params[:controller] == "events" and params[:action] == "mygrid" %> selected <% end %>"><a href="/events/mygrid">My</a></li>
+      <li class="sub <% if params[:controller] == "events" and params[:action] == "mylist" %> selected <% end %>"><a href="/events/mylist">Near</a></li>
+	<% end%>
+      <li <% if params[:controller] == "venues"  %> class="selected" <% end %>><a href="/venues/">Venues</a></li>
+    </ul>
+  </div>
+</div>

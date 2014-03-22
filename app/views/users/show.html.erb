@@ -1,0 +1,43 @@
+ <div class="twoofthree padder">
+				   <article>
+    <div class="profile_text">
+	 			<div class="holder">
+         <h3 class="key">Full Name</h2>
+         <div class="val"><%= @user.firstName %> <%= @user.lastName %></div>
+       </div>
+	 			<div class="holder">
+         <h3 class="key">Email</h2>
+         <div class="val"><%= @user.email %></div>
+       </div>
+	 			<div class="holder">
+         <h3 class="key">About</h2>
+         <div class="val"><%= @user.about %></div>
+       </div>
+	 			<div class="holder">
+         <h3 class="key">City</h2>
+         <div class="val"><%= @user.city %></div>
+       </div>
+       <div class="holder">
+         <h3 class="key">Places Visited</h2>
+         <div class="val">
+        
+           <ul class="bK a-l-k">
+             <li class="Uk dK" title="Tirana, Albania">
+               <div class="adr"><%= @user.places %>
+							  </div>
+             </li>
+           </ul>
+         </div>
+       </div>
+    </div>
+ </article>
+
+    </article>
+  </div>
+  <div class="oneofthree padder">
+		 <div class="profile_text_right">  
+	    <div class="avatar"> <%= image_tag @user.avatar.url(:medium) %> </div>
+				</div>
+  	  <%= render 'shared/stats' %>
+</div>
+<div class="map" style="background: url(//maps-api-ssl.google.com/maps/api/staticmap?size=485x250&amp;scale=2&amp;sensor=true&amp;language=en&amp;markers=icon:http://gloced.com/icona.png|42.3761,21.153346|42.657798,21.153346|41.33,19.82|42.00839,20.97399|42.504503,27.462959|36.903235,30.684757|44.203374,17.933407) center bottom"></div>

@@ -1,0 +1,3 @@
+== Welcome to Gloced
+
+Rails is a web-application for Events by Flakerim Ismani ^ Redon Skikuli for making the world a better place.

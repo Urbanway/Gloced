@@ -1,0 +1,60 @@
+	 <div class="twoofthree padder">
+		    <aside class="settings right"> <a class="block" title="Edit" href="<%= edit_event_path(@event) %>"></a></aside>
+   <article>
+	    <div class="profile_text">
+		 			<div class="holder">
+	         <div class="val"><h1><%= @event.name %></h1></div>
+	       </div>
+				 <div class="holder">
+		         <h3 class="key">Description</h2>
+		         <div class="val"><%=  @event.description %></div>
+		       </div> 
+			 			<div class="holder">
+		         <h3 class="key"></h2>
+		         <div class="val"><%=  @event.start_time.strftime("Start on:%A | %m %B %Y %H:%M ") %> <br> <%=  @event.end_time.strftime("Ends on %A | %m %B %Y %H:%M ") %></div>
+		       </div>
+				</div>
+	 </article>
+   <article><h1>Tags</h1>
+				<ul class="tags">
+						<% if Event.tag_counts.length > 0 -%>
+				        <% tag_cloud Event.tag_counts, %w(css1 css2 css3 css4) do |tag, css_class| -%>
+				          	<li>  <%= link_to tag.name, event_tags_path("#{tag}") -%></li>
+				        <% end -%>
+				    <% else -%>
+				        <%= content_tag :p, 'No tags' -%>
+				    <% end -%>
+				</ul>
+		 </article>
+
+	  </div>
+	  <div class="oneofthree padder"><%= image_tag @event.poster.url(:medium) %>
+	</div>
+	<div id="map-canvas" class="map rounded"></div>
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+var map;
+function initialize() {
+  var myLatlng = new google.maps.LatLng(<%=  @event.venue.longlat %>);
+  var myOptions = {
+    zoom: 14,
+    center: myLatlng,
+		'disableDefaultUI':true,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+
+  }
+  map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+
+ 
+  var marker = new google.maps.Marker({
+			icon:  "<%= @event.venue.logo.url(:minithumb) %>",
+      position: myLatlng,
+      map: map,
+      title:"<%= @event.venue.name %>"
+  });
+}
+
+      google.maps.event.addDomListener(window, 'load', initialize);
+
+</script>
+

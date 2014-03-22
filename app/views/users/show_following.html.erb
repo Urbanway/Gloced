@@ -1,0 +1,32 @@
+<div class="twoofthree padder">
+  <article>
+    <div class="followContainer">
+      <% if @users.any? %>
+      <% @users.each do |user| %>
+      <div class="checkin outOfTown">
+        <div class="avatar"><a href="/<%=user.username%>"><%=image_tag user.avatar.url(:minithumb)%> </a></div>
+        <div class="content">
+          <div class="hoverControls"> 
+				    <% if current_user.following?(@user) %>
+				      <%= render 'users/unfollow' %>
+				    <% else %>
+				      <%= render 'users/follow' %>
+				    <% end %>
+					</div>
+          <h4> <strong><a href="/<%= user.username %>"><%= user.firstName %> <%= user.lastName %></a></strong> <%= user.city %><%= unless user.country.blank?
+	 					", #{user.country}" end%></h4>
+          <p class="metadata"> <%= user.about %> </p>
+        </div>
+        <div style="clear: both;"> </div>
+      </div>
+      <% end %>
+      <% end %>
+    </div>
+  </article>
+  </article>
+</div>
+<div class="oneofthree padder">
+  <div class="profile_text_right">
+    <div class="avatar"> <%= image_tag @user.avatar.url(:medium) %> </div>
+  </div>
+  <%= render 'shared/stats' %> </div>

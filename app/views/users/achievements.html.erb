@@ -1,0 +1,24 @@
+<div class="twoofthree padder">
+  <article>
+    <div class="followContainer">
+      <% if @users.any? %>
+      <% @users.each do |user| %>
+      <div class="checkin outOfTown">
+        <div class="avatar"><a href="/<%=user.username%>"><%=image_tag user.avatar.url(:minithumb)%> </a></div>
+        <div class="content">
+           <h4> <strong><a href="/<%=user.username%>"><%= user.firstName %> s<%= user.lastName %></a></strong> <%= user.city %><%= unless user.country.blank?
+	 					", #{user.country}" end%></h4>
+          <p class="metadata"> <%= user.about %> </p>
+        </div>
+        <div style="clear: both;"> </div>
+      </div>
+      <% end %>
+      <% end %>
+    </div>
+  </article>
+</div>
+<div class="oneofthree padder">
+  <div class="profile_text">
+  	<h1>Achievements? Really?</h1>
+		<p> Some one should explain what a hell are those. Redon u there, u mad bro?<p>
+</div>

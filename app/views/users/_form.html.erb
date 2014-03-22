@@ -1,0 +1,85 @@
+<script>
+$(function() {
+	$( "#user_city" ).autocomplete({
+		source: function( request, response ) {
+			$.ajax({
+				url: "http://ws.geonames.org/searchJSON",
+				dataType: "jsonp",
+				data: {
+					featureClass: "P",
+					style: "full",
+					maxRows: 5,
+					name_startsWith: request.term
+				},
+				success: function( data ) {
+					response( $.map( data.geonames, function( item ) {
+						return {
+							label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+							value: item.name
+						}
+					}));
+				}
+			});
+		},
+		minLength: 2,
+		open: function() {
+			$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+		},
+		close: function() {
+			$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+		}
+	});
+});
+</script>
+
+	 <div class="twoofthree padder">
+		    <aside class="settings right"> <a class="block" title="Edit" href="<%= edit_user_path(@user) %>"></a></aside>
+<%= form_for(@user,:html => {:multipart => true} ) do |f| %>
+   <article>
+	    <div class="profile_text">
+		 			<div class="holder">
+	         <h3 class="fkey">First Name</h2>
+	         <div class="val"><%= f.text_field :firstName %></div>
+	       </div>
+				 <div class="holder">
+		         <h3 class="fkey">Last Name</h2>
+		         <div class="val"><%= f.text_field :lastName %></div>
+		       </div> 
+		 			<div class="holder">
+	         <h3 class="fkey">Email</h2>
+	         <div class="val"><%= f.text_field :email %></div>
+	       </div>
+		 			<div class="holder">
+	         <h3 class="fkey">About</h2>
+	         <div class="val"><%= f.text_field :about,:size=>"30", :maxlength=>"200"%></div>
+	       </div>
+		 			<div class="holder">
+	         <h3 class="fkey">City</h2>
+	         <div class="val"><%= f.text_field :city %></div>
+	       </div>
+	       <div class="holder">
+	         <h3 class="fkey">Places Visited</h2>
+	         <div class="val"><%= f.text_field :places %></div>
+	       </div>
+			 <div class="holder">
+			   <h3 class="key"></h2>
+        <div class="val">  <%= f.submit :class =>" button" %></div>
+			  </div></div>
+	 </article>
+ <% end %>
+
+	    </article>
+	  </div>
+	  <div class="oneofthree padder">
+			 <div class="profile_text_right"> 
+				<div id="uploads"> <%#= render :partial => @user.uploads %>
+				</div>	<%= image_tag @user.avatar.url(:medium) %>
+				
+				<%= form_for @user, :url => user_path, :html => { :multipart => true } do |form| %>
+			  <%= form.file_field :avatar %>
+			  <%= form.submit :class =>" button" %>
+				<% end %>
+			</div>
+	</div>
+	<div class="map" style="background: url(//maps-api-ssl.google.com/maps/api/staticmap?size=485x250&amp;scale=2&amp;sensor=true&amp;language=en&amp;markers=icon:http://gloced.com/icona.png|42.3761,21.153346|42.657798,21.153346|41.33,19.82|42.00839,20.97399|42.504503,27.462959|36.903235,30.684757|44.203374,17.933407) center bottom"></div>
+

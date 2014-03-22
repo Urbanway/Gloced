@@ -1,0 +1,19 @@
+<% 	@object = Event.find(:all, :conditions => ['user_id = ?', current_user.id]).collect {|p| [ p.name, p.id ] }
+	if @object.empty? %>
+		<section id="events" class="twoofthree padder">
+			<article>
+		<h2>You haven't created any Event.<br> Why not <a href="/events/new" style="color:#F66">create</a> one first!</h2><br>
+		<img src="/images/why.jpeg">
+		</article></section>
+	<% else %>
+	<section id="events">
+		<% @events.each_slice(3) do |event| %>
+			<%=content_tag :div, :class=>:row do %>
+		    	<%= render :partial => "event", :collection => event, :as => :event %>
+		<% end %>
+	<% end %>
+
+	</section>
+
+	<%= will_paginate @events %>
+<% end %>

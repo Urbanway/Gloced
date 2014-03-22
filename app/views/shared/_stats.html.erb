@@ -1,0 +1,10 @@
+<% @user ||= current_user %>
+
+<ul class="profile-stats group">
+  <li> <a href="/flakerimi/events"> <strong>a<%#= @user.events.count %></strong> <span>Events</span> </a> </li>
+  <li> <a href="/flakerimi/venues"> <strong>2</strong> <span>Venues</span> </a> </li>
+  <li> <a href="/flakerimi/achievements"> <strong>0</strong> <span>Achievements</span> </a> </li>
+  <li> <a href="<%= followers_path(@user) %>"> <strong><%= @user.followers.count %></strong> <span>Followers</span> </a> </li>
+  <li> <a href="<%= following_path(@user) %>"> <strong class="followee-count"><%= @user.following.count %></strong> <span>Following</span> </a> </li>
+   <li> <a href="#"> <strong><%= @user.created_at.strftime("%b %Y") %></strong> <span>Member Since</span> </a> </li>
+</ul>

@@ -1,0 +1,25 @@
+<div class="twoofthree padder">
+  <article>
+    <div class="followContainer">
+      <% @venues.each do |venue| %>
+      <div class="checkin outOfTown">
+        <div class="avatar"><a href="/venues/<%=venue.slug%>"><%=image_tag venue.logo.url(:minithumb)%> </a></div>
+        <div class="content">
+           <h4> <strong><a href="/venues/<%=venue.slug%>"><%= venue.name %></a></strong> <%= venue.city %><%= unless venue.country.blank?
+	 					", #{venue.country}" end%></h4>
+	          <p class="metadata"> <%= venue.address %> </p>
+	          <p class="metadata"> <%= venue.website %> </p>
+	          <p class="metadata"> <%= venue.twitter %> </p>
+	          <p class="metadata"> <%= venue.fb %> </p>
+        </div>
+        <div style="clear: both;"></div>
+      </div>
+      <% end %>
+    </div>
+  </article>
+</div>
+<div class="oneofthree padder">
+  <div class="profile_text">
+  	<h1>venues Listing?</h1>
+		<p> Some one should explain what a hell are those. Redon u there, u mad bro?<p>
+</div>

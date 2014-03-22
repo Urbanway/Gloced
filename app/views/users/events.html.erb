@@ -1,0 +1,22 @@
+<div class="twoofthree padder">
+  <article>
+    <div class="followContainer">
+      <% @events.each do |event| %>
+      <div class="checkin outOfTown">
+        <div class="avatar"><a href="/<%=event.slug%>"><%=image_tag event.poster.url(:minithumb)%> </a></div>
+        <div class="content">
+           <h4> <strong><a href="/<%=event.slug%>"><%= event.name %></a></strong> <%= event.venue.city %><%= unless event.venue.country.blank?
+	 					", #{event.venue.country}" end%></h4>
+          <p class="metadata"> <%= event.description %> </p>
+        </div>
+        <div style="clear: both;"><%= link_to image_tag(event.venue.logo.url(:minithumb), :size => "30x30", :style => "float:right; bottom: 10px; position: absolute;right:10px", :alt => "#{event.venue.name}"), venue_path(event.venue.slug) %></div>
+      </div>
+      <% end %>
+    </div>
+  </article>
+</div>
+<div class="oneofthree padder">
+  <div class="profile_text">
+  	<h1>Venue Listing?</h1>
+		<p> Some one should explain what a hell are those. Redon u there, u mad bro?<p>
+</div>

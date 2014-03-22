@@ -1,0 +1,33 @@
+<% 	@object = Event.find(:all, :conditions => ['user_id = ?', current_user.id]).collect {|p| [ p.name, p.id ] }
+	if @object.empty? %>
+		<section id="events" class="twoofthree padder">
+			<article>
+				<h2>You don't have any Venue. Why not <a href="/venues/new" style="color:#F66">create</a> one first!</h2><br>
+		<img src="/images/why.jpeg">
+		</article></section>
+	<% else %>
+           <% @venues.each do |venue| %>
+                <div class="one padder">
+                    <article class="venue-list">
+                        <div class="holder">
+													<% unless current_user?(@user) %>
+													
+                            <aside class="settings right">
+                                <a class="block" title="Edit" href="<%= edit_venue_path(venue) %>"></a>
+																<%=link_to "", venue, confirm: 'Are you sure you want to delete it? It will be gone, FOREVER. So?',:class=>'delete', :title =>"Delete",  method: :delete %>
+														</aside>
+													<% end %>
+                            <div class="pic-thumb">
+                                <%=image_tag venue.logo.url(:minithumb) %>
+                            </div>
+                             <div class="row"><div class="title">
+                                <%=link_to venue.name, venue_path(venue.slug) %>
+                            </div>
+                            <div class="desc">
+                                <%=venue.address %>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+   <% end %>
+<% end %>

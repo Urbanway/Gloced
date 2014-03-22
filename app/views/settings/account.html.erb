@@ -1,0 +1,32 @@
+
+	 <div class="twoofthree padder">
+<%= form_for(@user) do |f| %>
+   <article>
+	    <div class="profile_text">
+		 			<div class="holder">
+	         <h3 class="fkey">Email</h2>
+	         <div class="val"><%= f.text_field :email %></div>
+	       </div>
+		 			<div class="holder">
+	         <h3 class="fkey">User Name</h2>
+	         <div class="val"><%= f.text_field :username %></div>
+	       </div>
+				 <div class="holder">
+		         <h3 class="fkey">Language</h2>
+		         <div class="val"><%= f.text_field :language %>
+		       </div> 
+	       </div>
+		 			<div class="holder">
+	         <h3 class="fkey">Time Zone</h2>
+	         <div class="val"><%= f.text_field :timezone %></div>
+	       </div>
+	
+			 <div class="holder">
+			   <h3 class="key"></h2>
+        <div class="val">  <%= f.submit "UPDATE PROFILE", :class =>" button" %></div>
+			  </div></div>
+	 </article>
+ <% end %>
+	  </div>
+	  <div class="oneofthree padder"> a</div>
+	</div>

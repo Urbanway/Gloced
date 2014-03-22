@@ -1,0 +1,46 @@
+<div id="content-top"></div>
+<div id="content-menu" class="views">
+<% if params[:controller] == "settings" || request.path =='/users/edit'  %>
+ <div id="switch-menu" class="views subnav">
+		<ul>
+			<li><a <% if params[:action] == "profile"  %> class="selected" <% end %> href="/settings/profile">Profile</a></li>
+			<li><a <% if params[:action] == "account"  %> class="selected" <% end %> href="/settings/account">Account</a></li>
+			<li><a <% if params[:action] == "password"  %> class="selected" <% end %> href="/settings/password">Password</a></li>
+			<li><a <% if params[:action] == "notifications"  %> class="selected" <% end %> href="/settings/notifications">Notifications</a></li>
+		</ul>
+	</div>
+	 <% elsif params[:controller] == "users"  %>
+	 <div id="switch-menu" class="views subnav">
+		<ul>
+			<li><a <% if params[:action] == "following"  %> class="selected" <% end %> href="/<%= params[:id]%>/following">Following</a></li>
+			<li><a <% if params[:action] == "followers"  %> class="selected" <% end %> href="/<%= params[:id]%>/followers">Followers</a></li>
+			<li><a <% if params[:action] == "events"  %> class="selected" <% end %> href="/<%= params[:id]%>/events">Events</a></li>
+			<li><a <% if params[:action] == "venues"  %> class="selected" <% end %> href="/<%= params[:id]%>/venues">Venues</a></li>
+		</ul>	
+	</div><div class="views subnav"> <%= render 'users/follow_form' if signed_in? %></div>
+	 <% elsif params[:controller] == "events"  %>
+	 <div id="switch-menu" class="views subnav">
+		<ul>
+			<li><a <% if params[:action] == "index" or params[:action] == "mygrid"  %> class="selected" <% end %> href="/events/trending">Trending</a></li>
+			<li><a <% if params[:action] == "list"  or params[:action] == "mylist"  %> class="selected" <% end %> href="/events/nearby">Nearby</a></li>
+		</ul>	
+	</div>
+	 <div id="switch-menu" class="views subnav">
+		<ul>
+			<li><a <% if params[:action] == "my" or params[:action] == "mygrid"  %> class="selected" <% end %> href="/events/my">My Events </a></li>
+			<li><a <% if params[:action] == "new"  or params[:action] == "mylist"  %> class="selected" <% end %> href="/events/new">Create New</a></li>
+		</ul>	
+	</div>
+	 <% elsif params[:controller] == "venues"  %>
+	 <div id="switch-menu" class="views subnav right">
+		<ul>
+			<li><a <% if params[:action] == "index"  %> class="selected" <% end %> href="/venues/">Block</a></li>
+			<li><a <% if params[:action] == "list"  %> class="selected" <% end %> href="/venues/list">List</a></li>
+		</ul>	
+	</div>
+	<div class="views subnav">	<ul style="margin-right:11px;">
+			<li class="single"><a <% if params[:action] == "new"  %> class="selected" <% end %> href="/venues/new"><img src="/images/icons/190-bank.png"></a></li>
+		</ul>	
+	</div>
+	<% end %>
+</div>

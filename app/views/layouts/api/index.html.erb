@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to Gloced Apis</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="description" content="Explore events like never before!">
+<meta name="keywords" content="Explore events like never before!">
+<!-- Change the width below to just wider than your form's width
+        to optimize its initial scale on Apple iOS  and Android devices -->
+<meta name="viewport" content="width=640">
+<%= javascript_include_tag :application %>
+<%= stylesheet_link_tag '/css/front', :media => 'screen' %>
+<%= javascript_include_tag '/javascripts/jquery.gritter.min.js' %>
+</head>
+<body>
+	<div class="wrapper rounded6">
+	  <div class="holder rounded6">
+	    <div class="text"><br>
+	      <br>
+	      <div class="center"><img src="/images/logo.png"></div>
+	      <br>
+	      <br>
+	      <p style="font-size:24px; text-align:center">Developer center</p>
+	      <p class="center">Currently all apis are private, but we will release soon. </p>
+	    </div>
+	  </div>
+	  <div class="container rounded6 center">Return to Main homepage
+	  </div>
+       <%= render 'layouts/public/footer' %>
+      <%= debug(params) if Rails.env.development? %>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+
+.powenv
+
+rake
+
+tmp/
+
+log/
+
+public/events/
+
+public/venues/
+
+tmp/
+
+.idea
