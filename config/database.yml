@@ -12,10 +12,11 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
+  host: mysql1.alwaysdata.com
   database: Gloced_dev
   pool: 5
-  username: root
-  password: a
+  username: gloced_p
+  password: darude
   socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
@@ -27,8 +28,8 @@ test:
   reconnect: false
   database: Gloced_t
   pool: 5
-  username: root
-  password: a
+  username: gloced_p
+  password: darude
   socket: /tmp/mysql.sock
 
 
@@ -36,8 +37,9 @@ production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: gloced
+  database: gloced_p
+  host: mysql1.alwaysdata.com
   pool: 5
-  username: root
-  password: n3g3n3ti
+  username: gloced_p
+  password: darude
   socket: /var/lib/mysql/mysql.sock
