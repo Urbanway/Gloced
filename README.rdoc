@@ -1,3 +1,5 @@
 == Welcome to Gloced
 
-Rails is a web-application for Events by Flakerim Ismani ^ Redon Skikuli for making the world a better place.
+Rails is a web-application for Events by Urbanway for making the world a better place. You can fork it and make it even better.
+
+Currently requires rails 3.2 but we are working on upgrate to Rails 4.x. Stay tunned.
